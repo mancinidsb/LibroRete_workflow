@@ -19,6 +19,10 @@ CREATE TABLE IF NOT EXISTS perfil (
     FOREIGN KEY (id_usuario_perfil) REFERENCES usuario(id)
 );
 
+CREATE TABLE IF NOT EXISTS lista (
+    nome VARCHAR(150) PRIMARY KEY NOT NULL,
+    descricao VARCHAR(255) NOT NULL
+);
 
 INSERT IGNORE INTO usuario (id, nome, username, email, senha, foto) VALUES 
 (1, 'maria eduarda', '@eduarda', 'eduarda@gmail.com','2b869053f31a34090f3a8f14cbc73fb5b9cdde56604379c30a11b9b6f43203a4', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw0nQQC1W3yDwpOFLJJTqmirx88ESUttZFLA&s'),

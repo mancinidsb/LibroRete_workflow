@@ -11,5 +11,5 @@ from .views import *
 
 urlpatterns = [
     path('usuarios/',views.get_users, name='usuarios'),
-    path('perfis/<str:nick>', views.get_by_nick, name='perfis'),
+    
 ]

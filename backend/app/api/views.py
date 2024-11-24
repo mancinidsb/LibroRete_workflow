@@ -23,9 +23,14 @@ def get_by_nick(request, nick):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def get_users(request):
+def get_user(request, nick):
+    try:
+        usuario = Usuario.objects.get(username=nick)
+    except:
+        return Response({"message": "Usuário não encontrado"}, status=404)
+
     if request.method == 'GET':
-        usuarios = Usuario.objects.all()
-        serializer = UsuarioSerializer(usuarios, many=True)
+        usuario = Usuario.objects.get(username=nick)
+        serializer = UsuarioSerializer(usuario)
     return Response(serializer.data)
   

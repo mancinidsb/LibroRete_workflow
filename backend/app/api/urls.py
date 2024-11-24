@@ -10,6 +10,6 @@ from .views import *
 # urlpatterns = router.urls
 
 urlpatterns = [
-    path('usuarios/',views.get_users, name='usuarios'),
+    path('usuarios/<str:nick>',views.get_user, name='usuarios'),
     path('perfis/<str:nick>', views.get_by_nick, name='perfis'),
 ]

@@ -10,7 +10,7 @@ from rest_framework.response import Response
 
 @api_view(['GET'])
 def get_by_nick(request, nick):
-  
+#Retorna o perfil do usuário com base no nome de usuário(nickname) 
     try:
         usuario = Usuario.objects.get(username=nick)
     except:

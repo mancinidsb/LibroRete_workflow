@@ -36,34 +36,23 @@ def get_user_lists(request, nick):
     try:
         with connection.cursor() as cursor:
             cursor.execute("CALL busca_listas_de_um_usuario(%s)", [nick])
-            listas = cursor.fetchall() # todas as listas de todos os usuários
+            listas = cursor.fetchall()
 
             result = []
-            # itera sobre cada lista de cada usuário
             for lista in listas:
                 lista_nome = lista[0]
+                cursor.execute("CALL busca_livros_por_username(%s)", [nick])
+                livros = cursor.fetchall()
 
-                cursor.execute("""
-                    SELECT livro.titulo
-                    FROM lista_livro
-                    INNER JOIN livro ON lista_livro.isbn_livro = livro.isbn
-                    INNER JOIN lista ON lista_livro.id_lista = lista.id
-                    INNER JOIN perfil ON lista.id_perfil_lista = perfil.id
-                    INNER JOIN usuario ON perfil.id_usuario_perfil = usuario.id
-                    WHERE usuario.username = %s AND lista.nome = %s
-                """, [nick, lista_nome])
-                livros_da_lista = cursor.fetchall()
+                livros_da_lista = []
+                for livro in livros:
+                    if livro[0] == lista_nome:
+                        livros_da_lista.append(livro[2])
                 
-                livros_titulos = [] # todos os titulos dos livros de uma determinada lista
-                for livro in livros_da_lista:
-                    livros_titulos.append(livro[0])
-
-                lista_dict = {
+                result.append({
                     'lista': lista_nome,
-                    'livros': livros_titulos
-                }
-
-                result.append(lista_dict)
+                    'livros': livros_da_lista
+                })
 
         return Response(result)
     except Exception as e:

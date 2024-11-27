@@ -1,7 +1,5 @@
-from rest_framework.routers import DefaultRouter
 from django.urls import path
 from . import views
-from .views import *
 
 
 # router = DefaultRouter()
@@ -12,4 +10,5 @@ from .views import *
 urlpatterns = [
     path('usuarios/<str:nick>',views.get_user, name='usuarios'),
     path('perfis/<str:nick>', views.get_by_nick, name='perfis'),
+    path('listas/<str:nick>', views.get_user_lists, name='listas'),
 ]

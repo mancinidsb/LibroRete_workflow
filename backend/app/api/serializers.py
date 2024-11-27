@@ -1,12 +1,13 @@
 from rest_framework import serializers
-from .models import Usuario, Perfil
+from . import models as mdl
+
 
 class UsuarioSerializer(serializers.ModelSerializer): 
   class Meta: 
-    model = Usuario 
+    model = mdl.Usuario 
     fields = '__all__' # Inclui todos os campos da tabela
 
 class PerfilSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Perfil
+        model = mdl.Perfil
         fields = '__all__'

@@ -123,12 +123,34 @@ class DjangoSession(models.Model):
 
 
 class Lista(models.Model):
-    nome = models.CharField(primary_key=True, max_length=150)
+    id = models.IntegerField(primary_key=True)
+    nome = models.CharField(max_length=150)
     descricao = models.CharField(max_length=255)
+    id_perfil_lista = models.ForeignKey('Perfil', models.DO_NOTHING, db_column='id_perfil_lista')
 
     class Meta:
         managed = False
         db_table = 'lista'
+
+
+class ListaLivro(models.Model):
+    id_lista = models.ForeignKey(Lista, models.DO_NOTHING, db_column='id_lista')
+    isbn_livro = models.ForeignKey('Livro', models.DO_NOTHING, db_column='isbn_livro')
+
+    class Meta:
+        managed = False
+        db_table = 'lista_livro'
+
+
+class Livro(models.Model):
+    isbn = models.CharField(primary_key=True, max_length=15)
+    titulo = models.CharField(max_length=150)
+    autor = models.CharField(max_length=150)
+    genero = models.CharField(max_length=50)
+
+    class Meta:
+        managed = False
+        db_table = 'livro'
 
 
 class Perfil(models.Model):

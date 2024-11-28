@@ -25,8 +25,14 @@ services:
         until nc -z db 3306; do
           sleep 1;
         done;
+        python backend/app/manage.py migrate &&
+        python backend/app/manage.py createsuperuser --noinput &&
         python backend/app/manage.py runserver 0.0.0.0:8000;
       "
+    environment:
+      DJANGO_SUPERUSER_USERNAME: root
+      DJANGO_SUPERUSER_EMAIL: root@example.com
+      DJANGO_SUPERUSER_PASSWORD: root
 
   frontend:
     build: ./frontend

@@ -20,7 +20,8 @@ function Profile() {
     axios
       .get('http://localhost:8000/api/perfis/@eduarda?format=json')
       .then(response => {
-        setData(response.json())
+        console.log('Raw Response:', response.data);
+        setData(response.data)
         setLoading(false)
       })
       .catch(error => {

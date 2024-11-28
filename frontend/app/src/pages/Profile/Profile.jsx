@@ -1,15 +1,36 @@
 import './Profile.css'
 import React from 'react'
+import axios from 'axios'
 import ProfileRoutes from './profileRoutes'
 
 import { GrApps } from 'react-icons/gr'
 import { IoList } from 'react-icons/io5'
+import { useEffect, useState } from 'react'
 import { BsPersonCircle } from 'react-icons/bs'
 import { IoNewspaperOutline } from 'react-icons/io5'
 import { Link, useLocation } from 'react-router-dom'
 
 function Profile() {
   const location = useLocation()
+  const [data, setData] = useState([])
+  const [erro, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/api/perfis/@eduarda?format=json')
+      .then(response => {
+        setData(response.json())
+        setLoading(false)
+      })
+      .catch(error => {
+        setError(error)
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading) return <div>Carregando ...</div>
+  if (erro) return <div>Erro ao carregar os dados: {erro.message}</div>
 
   const barItems = [
     {
@@ -32,7 +53,7 @@ function Profile() {
           <BsPersonCircle id="photo" size={110} />
         </div>
         <div className="details-container">
-          <h2>username</h2>
+          <h2>@eduarda</h2>
           <div className="info-numbers">
             <div className="number">
               <span>0</span>
@@ -49,8 +70,8 @@ function Profile() {
           </div>
           <div className="info-text">
             <h3>Name</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>Terror, Romance</p>
+            <p>{data['bio']}</p>
+            <p>{data['interesses']}</p>
           </div>
         </div>
       </div>

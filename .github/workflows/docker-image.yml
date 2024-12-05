@@ -34,10 +34,12 @@ jobs:
           docker-compose -f docker-compose.yml up -d
 
       # Passo 5: Executar testes (caso haja)
-      #- name: Run tests in the containers
-        #run: |
-          ## Exemplo de execução de testes no contêiner Django
-         # docker exec django-container pytest
+      - name: Run tests in the containers
+        run: |
+          #Exemplo de execução de testes no contêiner Django
+          #docker exec -it librorete_workflow_backend_1 sh -c "python backend/app/manage.py test app"
+          docker exec -T librorete_workflow_backend_1 bash -c "python backend/app/manage.py test app"
+
 
          # # Exemplo de execução de testes no contêiner Node.js
          # docker exec node-container npm test

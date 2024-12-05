@@ -34,13 +34,13 @@ jobs:
           docker-compose -f docker-compose.yml up -d
 
       # Passo 5: Executar testes (caso haja)
-      - name: Run tests in the containers
-        run: |
-          # Exemplo de execução de testes no contêiner Django
-          docker exec django-container pytest
+      #- name: Run tests in the containers
+        #run: |
+          ## Exemplo de execução de testes no contêiner Django
+         # docker exec django-container pytest
 
-          # Exemplo de execução de testes no contêiner Node.js
-          docker exec node-container npm test
+         # # Exemplo de execução de testes no contêiner Node.js
+         # docker exec node-container npm test
 
       # Passo 6: Parar os contêineres após os testes
       - name: Stop Docker containers

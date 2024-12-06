@@ -1,58 +1,42 @@
-name: Docker Compose CI
+name: Testar com Docker Compose
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-
-  build:
-
+  build_and_test:
     runs-on: ubuntu-latest
 
+    services:
+      # Definindo o banco de dados como serviço
+      db:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        
+        #options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
-      # Passo 1: Checkout do código
-      - uses: actions/checkout@v4
+    - name: Check out the repository
+      uses: actions/checkout@v2
 
-      # Passo 2: Configuração do Docker Buildx
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
 
-      - name: Install Docker Compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose --version  # Verificar se o Docker Compose foi instalado corretamente
+    - name: Build and run Docker Compose
+      run: |
+        docker compose up --build -d
 
+    - name: Run tests inside the container
+      run: |
+        docker-compose exec  backend python /backend/app/manage.py test
 
-      # Passo 4: Construir e iniciar os contêineres com Docker Compose
-      - name: Build and start containers using Docker Compose
-        run: |
-          docker compose up --build backend -d
-          #docker-compose -f docker-compose.yml up -d
-
-      # Passo 5: Executar testes (caso haja)
-      - name: Run tests in the containers
-        run: |
-          pip install django
-          pip install mysqlclient
-          pip install djangorestframework
-          pip install django-cors-headers
-          #docker ps
-          python backend/app/manage.py test app
-          #sudo pwd
-          #Exemplo de execução de testes no contêiner Django
-          #docker exec librorete_workflow-backend-1 sh -c "python backend/app/manage.py test app"
-          #docker exec librorete_workflow-backend-1 bash -c "python backend/app/manage.py test app"
-
-
-         # # Exemplo de execução de testes no contêiner Node.js
-         # docker exec node-container npm test
-
-      # Passo 6: Parar os contêineres após os testes
-      - name: Stop Docker containers
-        run: |
-          docker-compose -f docker-compose.yml down
-
+    - name: Shut down Docker Compose
+      run: docker-compose down

@@ -38,7 +38,7 @@ jobs:
         run: |
           #Exemplo de execução de testes no contêiner Django
           #docker exec -it librorete_workflow_backend_1 sh -c "python backend/app/manage.py test app"
-          docker exec -T librorete_workflow_backend_1 bash -c "python backend/app/manage.py test app"
+          docker exec librorete_workflow_backend_1 bash -c "python backend/app/manage.py test app"
 
 
          # # Exemplo de execução de testes no contêiner Node.js

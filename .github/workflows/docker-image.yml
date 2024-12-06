@@ -44,7 +44,7 @@ jobs:
           #python backend/app/manage.py test app
           #sudo pwd
           #Exemplo de execução de testes no contêiner Django
-          docker exec -T librorete_workflow-backend-1 sh -c "python backend/app/manage.py test app"
+          docker exec librorete_workflow-backend-1 sh -c "python backend/app/manage.py test app"
           #docker exec librorete_workflow-backend-1 bash -c "python backend/app/manage.py test app"
 
 

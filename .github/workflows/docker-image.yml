@@ -30,21 +30,21 @@ jobs:
       # Passo 4: Construir e iniciar os contêineres com Docker Compose
       - name: Build and start containers using Docker Compose
         run: |
-          docker compose up --build -d
+          docker compose up --build backend -d
           #docker-compose -f docker-compose.yml up -d
 
       # Passo 5: Executar testes (caso haja)
       - name: Run tests in the containers
         run: |
-          #pip install django
-          #pip install mysqlclient
-          #pip install djangorestframework
-          #pip install django-cors-headers
-          docker ps
-          #python backend/app/manage.py test app
+          pip install django
+          pip install mysqlclient
+          pip install djangorestframework
+          pip install django-cors-headers
+          #docker ps
+          python backend/app/manage.py test app
           #sudo pwd
           #Exemplo de execução de testes no contêiner Django
-          docker exec librorete_workflow-backend-1 sh -c "python backend/app/manage.py test app"
+          #docker exec librorete_workflow-backend-1 sh -c "python backend/app/manage.py test app"
           #docker exec librorete_workflow-backend-1 bash -c "python backend/app/manage.py test app"
 
 

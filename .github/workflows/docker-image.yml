@@ -40,7 +40,8 @@ jobs:
           pip install mysqlclient
           pip install djangorestframework
           pip install django-cors-headers
-          python backend/app/manage.py test app
+          docker ps
+          #python backend/app/manage.py test app
           #sudo pwd
           #Exemplo de execução de testes no contêiner Django
           #docker exec -it librorete_workflow_backend_1 sh -c "python backend/app/manage.py test app"

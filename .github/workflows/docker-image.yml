@@ -36,6 +36,8 @@ jobs:
       # Passo 5: Executar testes (caso haja)
       - name: Run tests in the containers
         run: |
+          pip install django
+          pip install mysqlclient
           python backend/app/manage.py test app
           #sudo pwd
           #Exemplo de execução de testes no contêiner Django

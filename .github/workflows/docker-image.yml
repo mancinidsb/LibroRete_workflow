@@ -25,13 +25,18 @@ jobs:
           docker-compose --version
       continue-on-error: false
 
-    - name: Build and run Docker Compose
+    - name: Build and run Docker Compose (db)
       run: |
         docker-compose -f docker-compose.yml up -d db
+
+    - name: Build and run Docker Compose (backend)
+      run: |
+        docker-compose -f docker-compose.yml up -d backend
 
     - name: Run tests inside the container
       run: |
         sh -c "python --version"
+        docker ps
         #docker-compose exec -T backend python /backend/app/manage.py test
 
     - name: Shut down Docker Compose

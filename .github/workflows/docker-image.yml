@@ -20,8 +20,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
         ports:
           - 3306:3306
-        
-        #options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - name: Check out the repository
@@ -32,11 +31,11 @@ jobs:
 
     - name: Build and run Docker Compose
       run: |
-        docker compose up --build -d
+        docker-compose -f docker-compose.yml up -d --build
 
     - name: Run tests inside the container
       run: |
-        docker-compose exec  backend python /backend/app/manage.py test
+        docker-compose exec -T backend python /backend/app/manage.py test
 
     - name: Shut down Docker Compose
       run: docker-compose down

@@ -35,7 +35,7 @@ jobs:
 
     - name: Run tests inside the container
       run: |
-        sh -c "python --version"
+        sh -c "python /backend/app/manage.py test app"
         docker ps
         #docker-compose exec -T backend python /backend/app/manage.py test
 

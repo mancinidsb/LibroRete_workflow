@@ -20,3 +20,9 @@ class UsuarioAPITests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"id":1,"bio":"Idade: 28 anos Profissão: Desenvolvedor de Software | Pronome: Ela/Dela","interesses":"Amante de livros 📚 | Viajante por mundos imaginários e histórias inesquecíveis ✨ | Sempre em busca da próxima página para virar 📖 | Compartilhando paixões literárias e explorando universos através das palavras 🌍📕","id_usuario_perfil":1})
+
+    def test_listas_endpoint(self):
+        response = self.client.get("/api/listas/@eduarda")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {{"lista":"top ever!","livros":["Carrie","Hamlet","1984","Coraline","Duna"]},{"lista":"livros de 2024","livros":["Coraline","Duna"]},{"lista":"desejados","livros":[]}})

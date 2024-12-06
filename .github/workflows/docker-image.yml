@@ -38,7 +38,7 @@ jobs:
         #cd backend/app; python manage.py test
         #python /backend/app/manage.py test app
         docker ps
-        docker compose exec backend sh -c "python --version; cd backend/app; manage.py --version" 
+        docker compose exec backend sh -c "python --version; cd backend/app; pwd, ls ;python manage.py --version" 
         
     - name: Shut down Docker Compose
       run: docker-compose down

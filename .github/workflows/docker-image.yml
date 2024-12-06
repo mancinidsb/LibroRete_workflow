@@ -27,16 +27,16 @@ jobs:
 
     - name: Build and run Docker Compose (db)
       run: |
-        docker-compose -f docker-compose.yml up -d db
+        #docker-compose -f docker-compose.yml up -d db
 
     - name: Build and run Docker Compose (backend)
       run: |
-        docker-compose -f docker-compose.yml up -d backend
+        #docker-compose -f docker-compose.yml up -d backend
 
     - name: Run tests inside the container
       run: |
-        cd backend;ls
-        sh -c "python /backend/app/manage.py test app"
+        cd backend/app;ls
+        python /backend/app/manage.py test app
         docker ps
         #docker-compose exec -T backend python /backend/app/manage.py test
 

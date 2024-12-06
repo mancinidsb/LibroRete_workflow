@@ -30,7 +30,7 @@ jobs:
       # Passo 4: Construir e iniciar os contêineres com Docker Compose
       - name: Build and start containers using Docker Compose
         run: |
-          docker compose up --build 
+          docker compose up --build -d
           #docker-compose -f docker-compose.yml up -d
 
       # Passo 5: Executar testes (caso haja)

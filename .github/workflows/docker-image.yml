@@ -34,6 +34,10 @@ jobs:
       run: |
         docker-compose -f docker-compose.yml up -d backend
 
+    - name: Set the COVERALLS_REPO_TOKEN environment variable
+      run: |
+        docker-compose exec backend bash -c "export COVERALLS_REPO_TOKEN=${{ secrets.COVERALLS_REPO_TOKEN }}"
+
     - name: Run tests inside the container
       run: |
         #cd backend/app; python manage.py test

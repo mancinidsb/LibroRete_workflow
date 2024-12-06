@@ -40,7 +40,7 @@ jobs:
         #cd backend/app; python manage.py test
         #python /backend/app/manage.py test app
         docker ps
-        docker compose exec backend sh -c "cd backend/app;coverage run --branch manage.py test app;coverage xml;pwd;ls;coveralls --service=github"
+        docker compose exec backend sh -c "cd backend/app;coverage run --branch manage.py test app;coverage xml;pwd;ls;coveralls --root --service=github"
         
     
         

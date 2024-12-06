@@ -35,10 +35,10 @@ jobs:
 
     - name: Run tests inside the container
       run: |
-        cd backend/app; python manage.py test
-        python /backend/app/manage.py test app
+        #cd backend/app; python manage.py test
+        #python /backend/app/manage.py test app
         docker ps
-        docker-compose exec backend python /backend/app/manage.py test
+        docker compose exec librorete_workflow-backend-1 python /backend/app/manage.py test
 
     - name: Shut down Docker Compose
       run: docker-compose down

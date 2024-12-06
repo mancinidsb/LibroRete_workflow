@@ -36,6 +36,7 @@ jobs:
 
     - name: Run tests inside the container
       run: |
+        docker-compose exec backend bash -c "git config --global --add safe.directory /backend"
         #cd backend/app; python manage.py test
         #python /backend/app/manage.py test app
         docker ps

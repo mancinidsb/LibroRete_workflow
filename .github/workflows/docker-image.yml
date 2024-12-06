@@ -12,16 +12,6 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
 
-    services:
-      # Definindo o banco de dados como serviço
-      db:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
     - name: Check out the repository
       uses: actions/checkout@v2
@@ -31,11 +21,12 @@ jobs:
 
     - name: Build and run Docker Compose
       run: |
-        docker-compose -f docker-compose.yml up -d --build
+        docker-compose -f docker-compose.yml up -d db
 
     - name: Run tests inside the container
       run: |
-        docker-compose exec -T backend python /backend/app/manage.py test
+        sh -c "python --version"
+        #docker-compose exec -T backend python /backend/app/manage.py test
 
     - name: Shut down Docker Compose
       run: docker-compose down

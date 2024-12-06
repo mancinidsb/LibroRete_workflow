@@ -43,7 +43,8 @@ jobs:
         
     - name: Upload coverage to Coveralls
       run: |
-        coveralls --service=github -i ./backend/app/coverage.xml
+        # coveralls --service=github -i ./backend/app/coverage.xml
+        docker compose exec backend sh -c "cd backend/app; coveralls --service=github" 
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         

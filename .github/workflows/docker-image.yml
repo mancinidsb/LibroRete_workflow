@@ -36,7 +36,7 @@ jobs:
       # Passo 5: Executar testes (caso haja)
       - name: Run tests in the containers
         run: |
-          cd backend/app;ls
+          python backend/app/manage.py test app
           #sudo pwd
           #Exemplo de execução de testes no contêiner Django
           #docker exec -it librorete_workflow_backend_1 sh -c "python backend/app/manage.py test app"

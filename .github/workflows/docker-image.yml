@@ -23,6 +23,7 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
+          pip install coverage coveralls
       continue-on-error: false
 
     - name: Build and run Docker Compose (db)
@@ -38,7 +39,13 @@ jobs:
         #cd backend/app; python manage.py test
         #python /backend/app/manage.py test app
         docker ps
-        docker compose exec backend sh -c "python --version; cd backend/app; pwd; ls ;python manage.py test app" 
+        docker compose exec backend sh -c "python --version; cd backend/app; pwd; ls ;coverage run --branch manage.py test app;coverage xml" 
+        
+    - name: Upload coverage to Coveralls
+      run: |
+        coveralls --service=github
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         
     - name: Shut down Docker Compose
       run: docker-compose down

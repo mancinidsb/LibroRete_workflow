@@ -43,7 +43,7 @@ jobs:
         docker compose exec backend sh -c "cd backend/app;coverage run --branch manage.py test app;coverage xml;coveralls --service=github"
       env:
         COVERALLS_REPO_ROOT: /backend/app
-    
+     
         
         
     - name: Shut down Docker Compose
